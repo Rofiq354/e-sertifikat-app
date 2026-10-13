@@ -4,10 +4,8 @@ import QRCode from "qrcode";
 import { Upload, Archive, Type } from "lucide-react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { useTheme } from "../context/ThemeContext";
 
 const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
-  const { theme, isDarkMode } = useTheme();
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -19,7 +17,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Path ke file logo Anda (misal ditaruh di folder public/logo.png atau ikon Senkom)
+  // Path ke file logo (misal ditaruh di folder public/logo.png atau ikon Senkom)
   const LOGO_URL = "/logo_senkomm.png";
 
   // Helper Format Nama: CALLSIGN - NAMA
@@ -50,10 +48,12 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
 
   // 1. Inisialisasi Canvas
   useEffect(() => {
+    // Deteksi mode gelap awal dari kelas HTML / document Element
+    const isDark = document.documentElement.classList.contains("dark");
     const initCanvas = new Canvas(canvasRef.current, {
       width: 800,
       height: 600,
-      backgroundColor: isDarkMode ? "#1e293b" : "#f1f5f9",
+      backgroundColor: isDark ? "#1e293b" : "#f1f5f9",
     });
 
     setFabricCanvas(initCanvas);
@@ -62,14 +62,6 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
       initCanvas.dispose();
     };
   }, []);
-
-  // Update Background Tema
-  useEffect(() => {
-    if (fabricCanvas && !imageUploaded) {
-      fabricCanvas.backgroundColor = isDarkMode ? "#1e293b" : "#f1f5f9";
-      fabricCanvas.renderAll();
-    }
-  }, [isDarkMode, fabricCanvas, imageUploaded]);
 
   // 2. Unggah Gambar Desain Sertifikat
   const handleImageUpload = (e) => {
@@ -115,13 +107,13 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
             sampleUrl,
             fabricCanvas,
             containerWidth,
-            displayHeight,
+            displayHeight
           );
           addNameToCanvas(
             sampleText,
             fabricCanvas,
             containerWidth,
-            displayHeight,
+            displayHeight
           );
         }
       } catch (err) {
@@ -133,11 +125,10 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
 
   // Helper Membuat Elemen Group QR Code + Logo Tepat di Tengah (Proporsional)
   const createQRGroup = async (url, targetWidth = 250) => {
-    // 1. Generate Gambar QR Code Dasar dengan koreksi error High ('H')
     const qrDataUrl = await QRCode.toDataURL(url || window.location.href, {
       width: targetWidth,
       margin: 1,
-      errorCorrectionLevel: "H", // Wajib High agar QR tetap terbaca meski ada logo
+      errorCorrectionLevel: "H",
     });
 
     const qrImg = await FabricImage.fromURL(qrDataUrl);
@@ -150,23 +141,18 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
 
     const groupItems = [qrImg];
 
-    // 2. Tambahkan Logo Tepat di Tengah Tanpa Gepeng (Preserve Aspect Ratio)
     try {
       const logoImg = await FabricImage.fromURL(LOGO_URL);
-
-      // Tentukan target ukuran maksimal logo (misal: 25% dari total lebar QR Code)
       const maxLogoSize = targetWidth * 0.25;
-
-      // Hitung skala tunggal berdasarkan dimensi logo terbesar agar aspek rasio terjaga sempurna
       const scale = maxLogoSize / Math.max(logoImg.width, logoImg.height);
 
       logoImg.set({
         originX: "center",
         originY: "center",
-        left: targetWidth / 2, // Posisi persis di titik tengah X
-        top: targetWidth / 2, // Posisi persis di titik tengah Y
-        scaleX: scale, // Skala seragam untuk lebar
-        scaleY: scale, // Skala seragam untuk tinggi (tidak gepeng)
+        left: targetWidth / 2,
+        top: targetWidth / 2,
+        scaleX: scale,
+        scaleY: scale,
       });
 
       groupItems.push(logoImg);
@@ -174,7 +160,6 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
       console.warn("Logo gagal dimuat, QR Code dibuat tanpa logo.", e);
     }
 
-    // 3. Gabungkan QR Code & Logo menjadi satu Group
     const qrGroup = new Group(groupItems, {
       originX: "center",
       originY: "center",
@@ -187,7 +172,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
     return qrGroup;
   };
 
-  // 4. Pasang QR Code + Logo ke Canvas
+  // Pasang QR Code + Logo ke Canvas
   const addQRCodeWithLogoToCanvas = async (url, canvas, width, height) => {
     try {
       if (qrGroupObject) {
@@ -210,7 +195,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
     }
   };
 
-  // 5. Tambah / Atur Teks Nama Peserta
+  // Tambah / Atur Teks Nama Peserta
   const addNameToCanvas = (nameText, canvas, width, height) => {
     if (nameObject) {
       canvas.remove(nameObject);
@@ -238,7 +223,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
     return text;
   };
 
-  // 6. Download Massal ke File .ZIP
+  // Download Massal ke File .ZIP
   const handleDownloadZip = async () => {
     if (!fabricCanvas || selectedParticipants.length === 0) return;
 
@@ -247,7 +232,6 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
 
     const zip = new JSZip();
 
-    // Catat posisi & skala Group QR Code saat ini
     const qrGroupPosition = qrGroupObject
       ? {
           left: qrGroupObject.left,
@@ -257,7 +241,6 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
         }
       : null;
 
-    // Catat posisi & gaya Teks Nama saat ini
     const namePosition = nameObject
       ? {
           left: nameObject.left,
@@ -282,7 +265,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
       const targetUrl = generateParticipantUrl(participant);
       const formattedText = formatParticipantName(participant);
 
-      // --- A. UPDATE TEKS NAMA PESERTA ---
+      // A. UPDATE TEKS NAMA PESERTA
       if (currentName) {
         fabricCanvas.remove(currentName);
       }
@@ -297,7 +280,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
         fabricCanvas.add(currentName);
       }
 
-      // --- B. UPDATE QR CODE BER-LOGO ---
+      // B. UPDATE QR CODE BER-LOGO
       if (currentQrGroup) {
         fabricCanvas.remove(currentQrGroup);
       }
@@ -312,11 +295,9 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
         currentQrGroup = newQrGroup;
       }
 
-      // Render ulang Canvas bersih
       fabricCanvas.discardActiveObject();
       fabricCanvas.renderAll();
 
-      // Export ke Format JPG
       const dataURL = fabricCanvas.toDataURL({
         format: "jpeg",
         quality: 0.95,
@@ -327,22 +308,19 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
       const fileName =
         participant.CALLSIGN || participant.NAMA || `Sertifikat_${i + 1}`;
 
-      // Simpan ke direktori ZIP
       zip.file(
         `Sertifikat_${fileName.replace(/[/\\?%*:|"<>]/g, "_")}.jpg`,
         base64Data,
-        { base64: true },
+        { base64: true }
       );
 
       setProgress(i + 1);
       await new Promise((resolve) => setTimeout(resolve, 50));
     }
 
-    // Simpan State Objek Terakhir
     setQrGroupObject(currentQrGroup);
     setNameObject(currentName);
 
-    // Ekstrak & Unduh ZIP
     const zipBlob = await zip.generateAsync({ type: "blob" });
     saveAs(zipBlob, `E-Sertifikat_Batch_${Date.now()}.zip`);
 
@@ -350,40 +328,23 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
   };
 
   return (
-    <div style={{ marginTop: "20px" }}>
-      <div
-        style={{
-          marginBottom: "15px",
-          display: "flex",
-          gap: "10px",
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
+    <div className="mt-5 space-y-4">
+      {/* Action Buttons Toolbar */}
+      <div className="flex flex-wrap items-center gap-3">
         {/* Tombol Unggah / Ganti Desain */}
-        <label
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#2563eb",
-            color: "#fff",
-            borderRadius: "6px",
-            cursor: "pointer",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            fontWeight: "500",
-          }}
-        >
-          <Upload size={18} />{" "}
-          {imageUploaded
-            ? "Ganti Desain (JPG)"
-            : "Unggah Desain Sertifikat (JPG)"}
+        <label className="inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg cursor-pointer transition-colors shadow-sm">
+          <Upload size={18} />
+          <span>
+            {imageUploaded
+              ? "Ganti Desain (JPG)"
+              : "Unggah Desain Sertifikat (JPG)"}
+          </span>
           <input
             ref={fileInputRef}
             type="file"
             accept="image/jpeg, image/png"
             onChange={handleImageUpload}
-            style={{ display: "none" }}
+            className="hidden"
           />
         </label>
 
@@ -392,49 +353,39 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
           <button
             onClick={handleDownloadZip}
             disabled={isProcessing}
-            style={{
-              padding: "10px 16px",
-              backgroundColor: isProcessing ? "#9ca3af" : "#10b981",
-              color: "#fff",
-              border: "none",
-              borderRadius: "6px",
-              cursor: isProcessing ? "not-allowed" : "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              fontWeight: "500",
-            }}
+            className={`inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-white rounded-lg transition-all shadow-sm ${
+              isProcessing
+                ? "bg-slate-400 dark:bg-slate-600 cursor-not-allowed"
+                : "bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 cursor-pointer"
+            }`}
           >
             <Archive size={18} />
-            {isProcessing
-              ? `Mengekstrak (${progress}/${selectedParticipants.length})...`
-              : `Download All (${selectedParticipants.length} Data) .ZIP`}
+            <span>
+              {isProcessing
+                ? `Mengekstrak (${progress}/${selectedParticipants.length})...`
+                : `Download All (${selectedParticipants.length} Data) .ZIP`}
+            </span>
           </button>
         )}
       </div>
 
-      <p style={{ fontSize: "14px", color: theme.textSecondary }}>
-        * Geser dan posisikan <strong>Teks Callsign & Nama Peserta</strong>{" "}
-        (kotak hijau) serta <strong>QR Code</strong> (kotak biru) di atas desain
-        sertifikat Anda.
+      {/* Petunjuk Penggunaan */}
+      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+        * Geser dan posisikan{" "}
+        <strong className="text-emerald-600 dark:text-emerald-400">
+          Teks Callsign &amp; Nama Peserta
+        </strong>{" "}
+        (kotak hijau) serta{" "}
+        <strong className="text-blue-600 dark:text-blue-400">
+          QR Code
+        </strong>{" "}
+        (kotak biru) di atas desain sertifikat Anda.
       </p>
 
       {/* Container Pembungkus Canvas */}
       <div
         ref={containerRef}
-        style={{
-          width: "100%",
-          maxWidth: "100%",
-          overflow: "hidden",
-          border: `2px dashed ${theme.border}`,
-          borderRadius: "8px",
-          background: theme.bgCard,
-          boxSizing: "border-box",
-          margin: "0 auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        className="w-full max-w-full overflow-hidden border-2 border-dashed border-gray-300 dark:border-slate-700 rounded-xl bg-slate-100 dark:bg-slate-900 flex justify-center items-center box-border mx-auto shadow-inner min-h-[250px]"
       >
         <canvas ref={canvasRef} />
       </div>

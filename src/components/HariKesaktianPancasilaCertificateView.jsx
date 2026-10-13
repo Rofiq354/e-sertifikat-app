@@ -1,92 +1,64 @@
-import React from "react";
-import { Share2, ArrowLeft, LayoutTemplate } from "lucide-react";
-import { useTheme } from "../context/ThemeContext";
+import React from 'react';
+import { Share2, ArrowLeft, LayoutTemplate } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const SimpleCertificateView = ({ participantData, onBack, onUseTemplate }) => {
   const { theme } = useTheme();
 
   // 1. Ambil Query Parameters dari URL
   const searchParams = new URLSearchParams(window.location.search);
-  const urlTahun = searchParams.get("tahun") || "2026";
-  const urlCallsign =
-    searchParams.get("callsign") || searchParams.get("info-tambahan");
-  const urlNama = searchParams.get("nama");
-  const urlKota = searchParams.get("kota");
-  const urlProvinsi = searchParams.get("provinsi");
-  const urlLabelInfo = searchParams.get("label-info") || "Callsign :";
-  const urlEventTitle = searchParams.get("event") || "SPECIAL EVENT S12ZAF";
-  const urlEventSubtitle =
-    searchParams.get("subtitle") ||
-    `HARI BHAYANGKARA KE 80 \nTAHUN ${urlTahun}`;
+  const urlTahun = searchParams.get('tahun') || '2026';
+  const urlCallsign = searchParams.get('callsign') || searchParams.get('info-tambahan');
+  const urlNama = searchParams.get('nama');
+  const urlKota = searchParams.get('kota');
+  const urlProvinsi = searchParams.get('provinsi');
+  const urlLabelInfo = searchParams.get('label-info') || 'Callsign :';
 
-  // Deteksi apakah URL memuat parameter khusus peserta
+  // Properti judul & sub-judul event disesuaikan ke Hari Kesaktian Pancasila
+  const urlEventTitle = searchParams.get('event') || 'SPECIAL EVENT S12ZAF';
+  const urlEventSubtitle =
+    searchParams.get('subtitle') || `HARI KESAKTIAN PANCASILA \nTAHUN ${urlTahun}`;
+
+  // Deteksi apakah URL memuat parameter khusus peserta (URL Panjang)
   const isParticipantUrl = Boolean(urlCallsign || urlNama);
 
   // 2. Penentuan Data Peserta
   const participant = isParticipantUrl
     ? {
-        CALLSIGN: urlCallsign || "",
-        NAMA: urlNama || "Titok Tosan Batoro",
-        KOTA: urlKota || "Kota Cimahi",
-        PROVINSI: urlProvinsi || "Jawa Barat",
+        CALLSIGN: urlCallsign || '',
+        NAMA: urlNama || 'Titok Tosan Batoro',
+        KOTA: urlKota || 'Kota Cimahi',
+        PROVINSI: urlProvinsi || 'Jawa Barat',
       }
     : participantData || {
-        CALLSIGN: "S12TTB",
-        NAMA: "Titok Tosan Batoro",
-        KOTA: "Kota Cimahi",
-        PROVINSI: "Jawa Barat",
+        CALLSIGN: 'S12TTB',
+        NAMA: 'Titok Tosan Batoro',
+        KOTA: 'Kota Cimahi',
+        PROVINSI: 'Jawa Barat',
       };
 
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: `E-Sertifikat - ${participant.NAMA}`,
+        title: `E-Sertifikat Hari Kesaktian Pancasila - ${participant.NAMA}`,
         url: window.location.href,
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
-      alert("Link verifikasi e-sertifikat berhasil disalin!");
+      alert('Link verifikasi e-sertifikat berhasil disalin!');
     }
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "520px",
-        margin: "1rem auto",
-        padding: "0 0.75rem",
-        fontFamily:
-          'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        boxSizing: "border-box",
-      }}
-    >
-      {/* Navigasi Atas (Hanya tampil jika mode editor/default) */}
+    <div className="w-full max-w-md sm:max-w-lg mx-auto my-4 px-3 sm:px-4 font-sans box-border">
+      
+      {/* Tombol Navigasi Atas (Hanya tampil di mode editor / preview internal) */}
       {!isParticipantUrl && (
-        <div
-          style={{
-            display: "flex",
-            gap: "0.5rem",
-            marginBottom: "1.25rem",
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="flex gap-2 mb-4 flex-wrap">
           {onBack && (
             <button
               onClick={onBack}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.5rem 1rem",
-                backgroundColor: theme.bgCard,
-                color: theme.textPrimary,
-                border: `1px solid ${theme.border}`,
-                borderRadius: "0.375rem",
-                cursor: "pointer",
-                fontWeight: "600",
-                fontSize: "0.875rem",
-              }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
             >
               <ArrowLeft size={16} /> Kembali
             </button>
@@ -95,19 +67,7 @@ const SimpleCertificateView = ({ participantData, onBack, onUseTemplate }) => {
           {onUseTemplate && (
             <button
               onClick={onUseTemplate}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.5rem 1rem",
-                backgroundColor: "#2563eb",
-                color: "#ffffff",
-                border: "none",
-                borderRadius: "0.375rem",
-                cursor: "pointer",
-                fontWeight: "600",
-                fontSize: "0.875rem",
-              }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md bg-amber-700 hover:bg-amber-800 text-white transition-colors cursor-pointer"
             >
               <LayoutTemplate size={16} /> Gunakan Template Ini
             </button>
@@ -115,92 +75,38 @@ const SimpleCertificateView = ({ participantData, onBack, onUseTemplate }) => {
         </div>
       )}
 
-      {/* CONTAINER CARD UTAMA */}
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          borderRadius: "0.75rem",
-          boxShadow:
-            "0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.01)",
-          border: "1px solid #e2e8f0",
-          overflow: "hidden",
-          width: "100%",
-        }}
-      >
-        {/* Accent Bar Atas */}
-        <div
-          style={{
-            height: "0.5rem",
-            backgroundColor: "#d35400",
-            width: "100%",
-          }}
-        ></div>
+      {/* CONTAINER CARD UTAMA (BINGKAI WARNA COKELAT / MERAH MARUN BERSAHAJA) */}
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden w-full">
+        
+        {/* Accent Bar Atas (Emas Kebangsaan) */}
+        <div className="h-2 bg-amber-600 w-full" />
 
-        <div
-          style={{
-            padding: "clamp(1.25rem, 4vw, 2rem) clamp(1rem, 3.5vw, 1.75rem)",
-            textAlign: "center",
-          }}
-        >
+        <div className="p-4 sm:p-7 text-center">
+          
           {/* Area Logo */}
-          <div
-            style={{
-              marginBottom: "1rem",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          <div className="mb-3 flex justify-center">
             <img
               src="/logo_senkom.png"
               alt="Logo SENKOM MITRA POLRI"
-              style={{
-                width: "clamp(90px, 20vw, 120px)",
-                height: "auto",
-                objectFit: "contain",
-              }}
+              className="w-20 sm:w-28 h-auto object-contain"
               onError={(e) => {
-                e.target.style.display = "none";
+                e.currentTarget.style.display = 'none';
               }}
             />
           </div>
 
-          {/* Title Header Brand */}
-          <div
-            style={{
-              fontSize: "clamp(1rem, 3.5vw, 1.125rem)",
-              color: "#111827",
-              fontWeight: "800",
-              marginBottom: "0.25rem",
-              letterSpacing: "0.025em",
-              lineHeight: "1.2",
-            }}
-          >
+          {/* Header Brand Title */}
+          <h2 className="text-base sm:text-lg text-gray-900 font-extrabold tracking-wide leading-snug uppercase">
             SENKOM MITRA POLRI
-          </div>
-          <div
-            style={{
-              fontSize: "clamp(0.875rem, 3vw, 1rem)",
-              color: "#1f2937",
-              fontWeight: "700",
-              marginBottom: "0.5rem",
-              lineHeight: "1.2",
-            }}
-          >
+          </h2>
+          <h3 className="text-xs sm:text-base text-gray-800 font-bold mb-2 sm:mb-3 uppercase">
             KABUPATEN CIANJUR
-          </div>
+          </h3>
 
-          {/* Subtitle Event */}
-          <div
-            style={{
-              color: "#d35400",
-              fontWeight: "700",
-              fontSize: "clamp(1.125rem, 4.5vw, 1.375rem)",
-              marginBottom: "1.5rem",
-              lineHeight: "1.35",
-            }}
-          >
+          {/* Subtitle Special Event Hari Kesaktian Pancasila */}
+          <div className="text-amber-800 dark:text-amber-700 font-bold text-base sm:text-xl mb-4 sm:mb-6 leading-tight">
             {urlEventTitle} <br />
-            {urlEventSubtitle.split("\n").map((line, idx) => (
+            {urlEventSubtitle.split('\n').map((line, idx) => (
               <React.Fragment key={idx}>
                 {line}
                 <br />
@@ -209,173 +115,48 @@ const SimpleCertificateView = ({ participantData, onBack, onUseTemplate }) => {
           </div>
 
           {/* Main Status Label */}
-          <div
-            style={{
-              fontSize: "clamp(0.8125rem, 2.8vw, 0.875rem)",
-              color: "#2c3e50",
-              fontWeight: "700",
-              marginBottom: "1.25rem",
-              letterSpacing: "0.02em",
-              textTransform: "uppercase",
-            }}
-          >
+          <div className="text-[11px] sm:text-xs md:text-sm text-slate-800 font-bold mb-3 sm:mb-4 tracking-normal sm:tracking-wider uppercase">
             POLRES &amp; SENKOM MITRA POLRI KABUPATEN CIANJUR
           </div>
 
           {/* Statement */}
-          <div
-            style={{
-              fontSize: "clamp(0.8125rem, 2.5vw, 0.875rem)",
-              color: "#64748b",
-              marginBottom: "1.25rem",
-              lineHeight: "1.4",
-            }}
-          >
+          <p className="text-xs sm:text-sm text-slate-500 mb-3 sm:mb-5">
             E-Sertifikat / Piagam ini sah menyatakan data berikut :
-          </div>
+          </p>
 
-          {/* Data Group List */}
-          <div
-            style={{
-              backgroundColor: "#f8fafc",
-              border: "1px solid #f1f5f9",
-              borderRadius: "0.5rem",
-              padding: "clamp(0.875rem, 3vw, 1.25rem)",
-              textAlign: "left",
-              marginBottom: "1.5rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.625rem",
-            }}
-          >
-            {/* Rows Callsign */}
+          {/* Group Data Peserta */}
+          <div className="bg-slate-50 border border-slate-200/80 rounded-lg p-3 sm:p-5 text-left mb-5 space-y-2 sm:space-y-3">
+            
+            {/* Baris Callsign (Disembunyikan jika kosong) */}
             {participant.CALLSIGN && (
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "minmax(110px, 130px) 1fr",
-                  alignItems: "baseline",
-                  fontSize: "clamp(0.8125rem, 2.6vw, 0.9375rem)",
-                  gap: "0.5rem",
-                }}
-              >
-                <span style={{ fontWeight: "600", color: "#475569" }}>
-                  {urlLabelInfo}
-                </span>
-                <span
-                  style={{
-                    fontWeight: "700",
-                    color: "#0f172a",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {participant.CALLSIGN}
-                </span>
+              <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[130px_1fr] items-baseline text-xs sm:text-sm gap-2">
+                <span className="font-semibold text-slate-600">{urlLabelInfo}</span>
+                <span className="font-bold text-slate-900 break-words">{participant.CALLSIGN}</span>
               </div>
             )}
 
-            {/* Row Nama */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(110px, 130px) 1fr",
-                alignItems: "baseline",
-                fontSize: "clamp(0.8125rem, 2.6vw, 0.9375rem)",
-                gap: "0.5rem",
-              }}
-            >
-              <span style={{ fontWeight: "600", color: "#475569" }}>
-                Nama :
-              </span>
-              <span
-                style={{
-                  fontWeight: "700",
-                  color: "#0f172a",
-                  wordBreak: "break-word",
-                }}
-              >
-                {participant.NAMA}
-              </span>
+            {/* Baris Nama */}
+            <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[130px_1fr] items-baseline text-xs sm:text-sm gap-2">
+              <span className="font-semibold text-slate-600">Nama :</span>
+              <span className="font-bold text-slate-900 break-words">{participant.NAMA}</span>
             </div>
 
-            {/* Row Kota */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(110px, 130px) 1fr",
-                alignItems: "baseline",
-                fontSize: "clamp(0.8125rem, 2.6vw, 0.9375rem)",
-                gap: "0.5rem",
-              }}
-            >
-              <span style={{ fontWeight: "600", color: "#475569" }}>
-                Kota / Kabupaten :
-              </span>
-              <span
-                style={{
-                  fontWeight: "700",
-                  color: "#0f172a",
-                  wordBreak: "break-word",
-                }}
-              >
-                {participant.KOTA || participant["KOTA/ KABUPATEN"]}
-              </span>
+            {/* Baris Kota / Kabupaten */}
+            <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[130px_1fr] items-baseline text-xs sm:text-sm gap-2">
+              <span className="font-semibold text-slate-600">Kota / Kabupaten :</span>
+              <span className="font-bold text-slate-900 break-words">{participant.KOTA || participant['KOTA/ KABUPATEN']}</span>
             </div>
 
-            {/* Row Provinsi */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(110px, 130px) 1fr",
-                alignItems: "baseline",
-                fontSize: "clamp(0.8125rem, 2.6vw, 0.9375rem)",
-                gap: "0.5rem",
-              }}
-            >
-              <span style={{ fontWeight: "600", color: "#475569" }}>
-                Provinsi :
-              </span>
-              <span
-                style={{
-                  fontWeight: "700",
-                  color: "#0f172a",
-                  wordBreak: "break-word",
-                }}
-              >
-                {participant.PROVINSI}
-              </span>
+            {/* Baris Provinsi */}
+            <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[130px_1fr] items-baseline text-xs sm:text-sm gap-2">
+              <span className="font-semibold text-slate-600">Provinsi :</span>
+              <span className="font-bold text-slate-900 break-words">{participant.PROVINSI}</span>
             </div>
 
-            {/* Status Dokumen */}
-            <div
-              style={{
-                marginTop: "0.5rem",
-                borderTop: "1px dashed #cbd5e1",
-                paddingTop: "0.75rem",
-                display: "grid",
-                gridTemplateColumns: "minmax(110px, 130px) 1fr",
-                alignItems: "center",
-                gap: "0.5rem",
-              }}
-            >
-              <span
-                style={{
-                  fontWeight: "600",
-                  color: "#475569",
-                  fontSize: "clamp(0.75rem, 2.4vw, 0.875rem)",
-                }}
-              >
-                Status Dokumen :
-              </span>
-              <span
-                style={{
-                  fontWeight: "700",
-                  color: "#27ae60",
-                  fontSize: "clamp(0.75rem, 2.4vw, 0.875rem)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                }}
-              >
+            {/* Status Dokumen Valid */}
+            <div className="mt-3 pt-3 border-t border-dashed border-slate-300 grid grid-cols-[100px_1fr] sm:grid-cols-[130px_1fr] items-center gap-2">
+              <span className="font-semibold text-slate-600 text-[11px] sm:text-xs">Status Dokumen :</span>
+              <span className="font-bold text-emerald-600 text-[11px] sm:text-xs flex items-center gap-1">
                 ✓ VALID &amp; TERVERIFIKASI
               </span>
             </div>
@@ -387,22 +168,10 @@ const SimpleCertificateView = ({ participantData, onBack, onUseTemplate }) => {
               if (window.history.length > 1) {
                 window.close();
               } else {
-                alert("Tampilan digital sertifikat aktif.");
+                alert('Tampilan digital e-sertifikat aktif.');
               }
             }}
-            style={{
-              width: "100%",
-              padding: "0.75rem 1rem",
-              backgroundColor: "#e74c3c",
-              color: "#ffffff",
-              border: "none",
-              borderRadius: "0.375rem",
-              fontSize: "clamp(0.8125rem, 2.5vw, 0.875rem)",
-              fontWeight: "700",
-              cursor: "pointer",
-              letterSpacing: "0.03em",
-              transition: "background-color 0.2s ease",
-            }}
+            className="w-full py-2.5 sm:py-3 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md text-xs sm:text-sm font-bold tracking-wider transition-colors cursor-pointer uppercase shadow-sm"
           >
             TUTUP FILE DIGITAL
           </button>
@@ -410,33 +179,15 @@ const SimpleCertificateView = ({ participantData, onBack, onUseTemplate }) => {
       </div>
 
       {/* Tombol Bagikan Link */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "1.25rem",
-        }}
-      >
+      <div className="flex justify-center mt-4">
         <button
           onClick={handleShare}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            padding: "0.625rem 1.25rem",
-            backgroundColor: theme.bgCard,
-            color: theme.textPrimary,
-            border: `1px solid ${theme.border}`,
-            borderRadius: "0.375rem",
-            fontWeight: "600",
-            fontSize: "0.875rem",
-            cursor: "pointer",
-            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
-          }}
+          className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
         >
           <Share2 size={16} /> Bagikan Link Sertifikat
         </button>
       </div>
+
     </div>
   );
 };

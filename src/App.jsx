@@ -18,7 +18,7 @@ function MainApp() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // State Halaman: 'landing', 'pancasila-view', atau 'editor'
+  // State Halaman: 'landing', 'pancasila-view', 'bhayangkara-view', 'kesaktian-pancasila-view', atau 'editor'
   const [currentStep, setCurrentStep] = useState("landing");
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
@@ -29,22 +29,32 @@ function MainApp() {
 
   const LOCAL_CSV_PATH = "/data-peserta.csv";
 
-  // 1. Cek URL Browser saat pertama kali aplikasi dimuat secara dinamis
+  // 1. Cek URL Browser saat aplikasi dimuat & tangani tombol Back Browser (popstate)
   useEffect(() => {
-    const pathname = window.location.pathname;
-    const searchParams = new URLSearchParams(window.location.search);
+    const checkRoute = () => {
+      const pathname = window.location.pathname;
+      const searchParams = new URLSearchParams(window.location.search);
+      const hasParticipantParams = Boolean(
+        searchParams.get("callsign") || searchParams.get("nama")
+      );
 
-    if (pathname.includes("/hari-kesaktian-pancasila")) {
-      setCurrentStep("kesaktian-pancasila-view");
-    } else if (pathname.includes("/hari-bhayangkara")) {
-      setCurrentStep("bhayangkara-view");
-    } else if (
-      pathname.includes("/hari-lahir-pancasila") ||
-      searchParams.get("callsign") ||
-      searchParams.get("nama")
-    ) {
-      setCurrentStep("pancasila-view");
-    }
+      if (pathname.includes("/hari-kesaktian-pancasila")) {
+        setCurrentStep("kesaktian-pancasila-view");
+      } else if (pathname.includes("/hari-bhayangkara")) {
+        setCurrentStep("bhayangkara-view");
+      } else if (pathname.includes("/hari-lahir-pancasila")) {
+        setCurrentStep("pancasila-view");
+      } else if (hasParticipantParams) {
+        setCurrentStep("pancasila-view");
+      } else {
+        setCurrentStep("landing");
+      }
+    };
+
+    checkRoute();
+
+    window.addEventListener("popstate", checkRoute);
+    return () => window.removeEventListener("popstate", checkRoute);
   }, []);
 
   // 2. Load Data Peserta dari File CSV Lokal
@@ -55,7 +65,7 @@ function MainApp() {
         const response = await fetch(LOCAL_CSV_PATH);
         if (!response.ok)
           throw new Error(
-            'File "data-peserta.csv" tidak ditemukan di folder public.',
+            'File "data-peserta.csv" tidak ditemukan di folder public.'
           );
 
         const arrayBuffer = await response.arrayBuffer();
@@ -127,22 +137,9 @@ function MainApp() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "1100px",
-        margin: "0 auto",
-        padding: "24px",
-        fontFamily: "system-ui, sans-serif",
-      }}
-    >
+    <div className="max-w-[1100px] mx-auto p-4 sm:p-6 font-sans">
       {/* Header Bar dengan Tombol Mode Tema (Light/Dark) */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          marginBottom: "16px",
-        }}
-      >
+      <div className="flex justify-end mb-4">
         <ThemeToggle />
       </div>
 
@@ -182,85 +179,41 @@ function MainApp() {
       {currentStep === "editor" && (
         <div>
           {/* Top Bar Navigation Editor */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "20px",
-              borderBottom: `1px solid ${theme.border}`,
-              paddingBottom: "16px",
-            }}
-          >
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-5 pb-4 border-b border-gray-200 dark:border-slate-700">
             <button
               onClick={handleGoBack}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "8px 14px",
-                backgroundColor: theme.bgCard,
-                color: theme.textPrimary,
-                border: `1px solid ${theme.border}`,
-                borderRadius: "6px",
-                cursor: "pointer",
-                fontWeight: "500",
-                fontSize: "14px",
-              }}
+              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-medium rounded-md border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
             >
               <ArrowLeft size={16} /> Kembali Pilih Template
             </button>
 
             {selectedTemplate && (
-              <span
-                style={{
-                  fontSize: "14px",
-                  backgroundColor: theme.infoBg,
-                  color: theme.infoText,
-                  padding: "6px 12px",
-                  borderRadius: "20px",
-                  fontWeight: "600",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
+              <span className="text-xs sm:text-sm bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-full font-semibold inline-flex items-center gap-1.5">
                 <CheckCircle size={14} /> Template Aktif:{" "}
                 {selectedTemplate.title}
               </span>
             )}
           </div>
 
-          <header style={{ marginBottom: "20px" }}>
-            <h1
-              style={{
-                fontSize: "24px",
-                fontWeight: "bold",
-                color: theme.textPrimary,
-                margin: 0,
-              }}
-            >
+          <header className="mb-5">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 m-0">
               Atur & Generator E-Sertifikat
             </h1>
-            <p
-              style={{
-                color: theme.textSecondary,
-                marginTop: "4px",
-                fontSize: "14px",
-              }}
-            >
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
               Tentukan rentang data peserta, unggah gambar desain, posisikan QR
               Code di canvas, dan unduh file .ZIP.
             </p>
           </header>
 
           {loading && (
-            <p style={{ color: theme.textSecondary }}>Memuat data peserta...</p>
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400">
+              Memuat data peserta...
+            </p>
           )}
-          {error && <p style={{ color: "#ef4444" }}>{error}</p>}
+          {error && <p className="text-xs sm:text-sm text-red-500">{error}</p>}
 
           {!loading && !error && totalData > 0 && (
-            <div>
+            <div className="space-y-4">
               <PrintModeSelector
                 mode={mode}
                 setMode={setMode}
