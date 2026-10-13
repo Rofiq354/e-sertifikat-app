@@ -31,8 +31,14 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
 
   // Helper Pembuat URL QR Code
   const generateParticipantUrl = (participant) => {
-    const basePath = selectedTemplate?.url || "/hari-lahir-pancasila/";
-    const baseUrl = `${window.location.origin}${basePath}`;
+    const currentBrowserPath =
+      window.location.pathname !== "/"
+        ? window.location.pathname
+        : "/hari-kesaktian-pancasila/";
+    const basePath = selectedTemplate?.url || currentBrowserPath;
+
+    const formattedPath = basePath.endsWith("/") ? basePath : `${basePath}/`;
+    const baseUrl = `${window.location.origin}${formattedPath}`;
 
     const queryParams = new URLSearchParams({
       tahun: "2026",
@@ -107,13 +113,13 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
             sampleUrl,
             fabricCanvas,
             containerWidth,
-            displayHeight
+            displayHeight,
           );
           addNameToCanvas(
             sampleText,
             fabricCanvas,
             containerWidth,
-            displayHeight
+            displayHeight,
           );
         }
       } catch (err) {
@@ -311,7 +317,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
       zip.file(
         `Sertifikat_${fileName.replace(/[/\\?%*:|"<>]/g, "_")}.jpg`,
         base64Data,
-        { base64: true }
+        { base64: true },
       );
 
       setProgress(i + 1);
@@ -376,16 +382,14 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
           Teks Callsign &amp; Nama Peserta
         </strong>{" "}
         (kotak hijau) serta{" "}
-        <strong className="text-blue-600 dark:text-blue-400">
-          QR Code
-        </strong>{" "}
+        <strong className="text-blue-600 dark:text-blue-400">QR Code</strong>{" "}
         (kotak biru) di atas desain sertifikat Anda.
       </p>
 
       {/* Container Pembungkus Canvas */}
       <div
         ref={containerRef}
-        className="w-full max-w-full overflow-hidden border-2 border-dashed border-gray-300 dark:border-slate-700 rounded-xl bg-slate-100 dark:bg-slate-900 flex justify-center items-center box-border mx-auto shadow-inner min-h-[250px]"
+        className="w-full max-w-full overflow-hidden border-2 border-dashed border-gray-300 dark:border-slate-700 rounded-xl bg-slate-100 dark:bg-slate-900 flex justify-center items-center box-border mx-auto shadow-inner min-h-62.5"
       >
         <canvas ref={canvasRef} />
       </div>

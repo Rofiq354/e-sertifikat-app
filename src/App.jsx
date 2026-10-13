@@ -10,6 +10,7 @@ import CertificateEditor from "./components/CertificateEditor";
 import HariPancasilaCertificateView from "./components/HariPancasilaCertificateView";
 import HariBhayangkaraCertificateView from "./components/HariBhayangkaraCertificateView";
 import HariKesaktianPancasilaCertificateView from "./components/HariKesaktianPancasilaCertificateView";
+import KetuaSenkomView from "./components/KetuaSenkomView";
 import { parseCustomInput } from "./utils/parseCustomInput";
 
 function MainApp() {
@@ -35,10 +36,12 @@ function MainApp() {
       const pathname = window.location.pathname;
       const searchParams = new URLSearchParams(window.location.search);
       const hasParticipantParams = Boolean(
-        searchParams.get("callsign") || searchParams.get("nama")
+        searchParams.get("callsign") || searchParams.get("nama"),
       );
 
-      if (pathname.includes("/hari-kesaktian-pancasila")) {
+      if (pathname.includes("/ketua-senkom")) {
+        setCurrentStep("ketua-senkom-view");
+      } else if (pathname.includes("/hari-kesaktian-pancasila")) {
         setCurrentStep("kesaktian-pancasila-view");
       } else if (pathname.includes("/hari-bhayangkara")) {
         setCurrentStep("bhayangkara-view");
@@ -65,7 +68,7 @@ function MainApp() {
         const response = await fetch(LOCAL_CSV_PATH);
         if (!response.ok)
           throw new Error(
-            'File "data-peserta.csv" tidak ditemukan di folder public.'
+            'File "data-peserta.csv" tidak ditemukan di folder public.',
           );
 
         const arrayBuffer = await response.arrayBuffer();
@@ -137,7 +140,7 @@ function MainApp() {
   };
 
   return (
-    <div className="max-w-[1100px] mx-auto p-4 sm:p-6 font-sans">
+    <div className="max-w-275 mx-auto p-4 sm:p-6 font-sans">
       {/* Header Bar dengan Tombol Mode Tema (Light/Dark) */}
       <div className="flex justify-end mb-4">
         <ThemeToggle />
@@ -174,6 +177,8 @@ function MainApp() {
           onUseTemplate={() => setCurrentStep("editor")}
         />
       )}
+
+      {currentStep === "ketua-senkom-view" && <KetuaSenkomView />}
 
       {/* HALAMAN EDITOR CANVAS & PENGATURAN CETAK */}
       {currentStep === "editor" && (
