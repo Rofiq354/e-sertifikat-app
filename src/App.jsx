@@ -65,11 +65,14 @@ function MainApp() {
     const fetchLocalCSV = async () => {
       try {
         setLoading(true);
-        const response = await fetch(LOCAL_CSV_PATH);
-        if (!response.ok)
-          throw new Error(
-            'File "data-peserta.csv" tidak ditemukan di folder public.',
-          );
+
+        // Gunakan import.meta.env.BASE_URL agar path menyesuaikan nama repositori/domain deploy
+        const csvPath = `${import.meta.env.BASE_URL}data-peserta.csv`;
+
+        const response = await fetch(csvPath);
+        if (!response.ok) {
+          throw new Error(`File CSV tidak ditemukan di: ${csvPath}`);
+        }
 
         const arrayBuffer = await response.arrayBuffer();
         const workbook = XLSX.read(arrayBuffer, { type: "array" });
@@ -80,7 +83,7 @@ function MainApp() {
           setExcelData(jsonData);
           setDefaultCount(Math.min(5, jsonData.length));
         } else {
-          setError("Data CSV kosong.");
+          setError("Data CSV di dalam file kosong.");
         }
       } catch (err) {
         console.error("Error CSV:", err);
