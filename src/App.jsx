@@ -67,7 +67,7 @@ function MainApp() {
         setLoading(true);
 
         // Gunakan import.meta.env.BASE_URL agar path menyesuaikan nama repositori/domain deploy
-        const csvPath = `${import.meta.env.BASE_URL}data-peserta.csv`;
+        const csvPath = `${import.meta.env.BASE_URL}${LOCAL_CSV_PATH}`;
 
         const response = await fetch(csvPath);
         if (!response.ok) {
