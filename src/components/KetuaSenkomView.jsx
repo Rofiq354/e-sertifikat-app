@@ -9,11 +9,9 @@ const KetuaSenkomView = () => {
   const ketuaInfo = {
     nama: "H. Suparman",
     jabatan: "Ketua Senkom Mitra Polri Kabupaten Cianjur",
-    motto: "Kemitraan Senkom & Polri untuk Kamtibmas yang Kondusif",
+    motto: "Menembus Jarak Tanpa Batas",
     deskripsi:
       "Memimpin Senkom Mitra Polri Kabupaten Cianjur dalam menjalin sinergi dengan Kepolisian Resor (Polres) Cianjur guna mewujudkan keamanan, ketertiban masyarakat, serta pemanfaatan teknologi komunikasi digital.",
-    polresMitra:
-      "AKBP Dr. A Alexander Yurikho Hadi, S.H., S.I.K., M.Si., M.M., H.I., M.I.P.",
   };
 
   const handleShare = () => {
@@ -113,15 +111,6 @@ const KetuaSenkomView = () => {
               </span>
               <span className="font-bold text-slate-900 dark:text-slate-100">
                 Kabupaten Cianjur, Jawa Barat
-              </span>
-            </div>
-
-            <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] items-baseline text-xs sm:text-sm gap-2">
-              <span className="font-semibold text-slate-500 dark:text-slate-400">
-                Mitra Kapolres :
-              </span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200 text-xs">
-                {ketuaInfo.polresMitra}
               </span>
             </div>
 

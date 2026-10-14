@@ -21,6 +21,8 @@ const SimpleCertificateView = ({ participantData, onBack, onUseTemplate }) => {
     searchParams.get("subtitle") ||
     `HARI KESAKTIAN PANCASILA \nTAHUN ${urlTahun}`;
 
+  const LOGO_URL = `${import.meta.env.BASE_URL}logo_senkom.png`;
+
   // Deteksi apakah URL memuat parameter khusus peserta (URL Panjang)
   const isParticipantUrl = Boolean(urlCallsign || urlNama);
 
@@ -85,7 +87,7 @@ const SimpleCertificateView = ({ participantData, onBack, onUseTemplate }) => {
           {/* Area Logo */}
           <div className="mb-3 flex justify-center">
             <img
-              src="/logo_senkom.png"
+              src={LOGO_URL}
               alt="Logo SENKOM MITRA POLRI"
               className="w-20 sm:w-28 h-auto object-contain"
               onError={(e) => {
