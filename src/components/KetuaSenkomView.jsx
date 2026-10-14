@@ -119,7 +119,9 @@ const KetuaSenkomView = () => {
                 Sesanti Senkom Mitra Polri:
               </span>
               <p className="text-xs sm:text-sm italic font-medium text-slate-700 dark:text-slate-300">
-                "{ketuaInfo.motto}"
+                "{ketuaInfo.motto}" <br />
+                "Siaga Saat Aman Ada Saat Dibutuhkan" <br />
+                "NKRI Harga Mati"
               </p>
             </div>
           </div>
