@@ -116,7 +116,7 @@ const KetuaSenkomView = () => {
 
             <div className="mt-3 pt-3 border-t border-dashed border-slate-300 dark:border-slate-700">
               <span className="font-semibold text-slate-500 dark:text-slate-400 text-xs block mb-1">
-                Motto Kemitraan:
+                Sesanti Senkom Mitra Polri:
               </span>
               <p className="text-xs sm:text-sm italic font-medium text-slate-700 dark:text-slate-300">
                 "{ketuaInfo.motto}"
