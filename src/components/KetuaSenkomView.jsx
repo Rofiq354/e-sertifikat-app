@@ -1,7 +1,11 @@
 import React from "react";
-import { Share2, Shield, CheckCircle } from "lucide-react";
+import { Share2, CheckCircle } from "lucide-react";
 
 const KetuaSenkomView = () => {
+  // Gunakan BASE_URL dari Vite agar path gambar menyesuaikan domain deploy di GitHub Pages
+  const LOGO_URL = `${import.meta.env.BASE_URL}logo_senkom.png`;
+  const FOTO_KETUA_URL = `${import.meta.env.BASE_URL}ketua-senkom-cianjur.png`;
+
   const ketuaInfo = {
     nama: "H. Suparman",
     jabatan: "Ketua Senkom Mitra Polri Kabupaten Cianjur",
@@ -24,6 +28,15 @@ const KetuaSenkomView = () => {
     }
   };
 
+  const handleClose = () => {
+    // Coba tutup tab jika dibuka via link/QR scanner
+    window.close();
+    // Jika browser memblokir window.close(), arahkan balik ke base URL aplikasi
+    setTimeout(() => {
+      window.location.href = import.meta.env.BASE_URL;
+    }, 300);
+  };
+
   return (
     <div className="w-full max-w-md sm:max-w-xl mx-auto my-6 px-3 sm:px-4 font-sans box-border">
       {/* CONTAINER CARD UTAMA */}
@@ -35,7 +48,7 @@ const KetuaSenkomView = () => {
           {/* Logo Senkom */}
           <div className="mb-4 flex justify-center items-center">
             <img
-              src="/logo_senkom.png"
+              src={LOGO_URL}
               alt="Logo SENKOM MITRA POLRI"
               className="w-16 sm:w-20 h-auto object-contain"
               onError={(e) => {
@@ -56,11 +69,11 @@ const KetuaSenkomView = () => {
           <div className="relative w-28 h-28 sm:w-36 sm:h-36 mx-auto mb-4 rounded-full p-1 bg-linear-to-tr from-[#d35400] to-blue-600 shadow-md">
             <div className="w-full h-full rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
               <img
-                src="/ketua-senkom-cianjur.png"
+                src={FOTO_KETUA_URL}
                 alt={ketuaInfo.nama}
                 className="w-full h-full object-cover object-top"
                 onError={(e) => {
-                  e.currentTarget.src = "/ketua-senkom-cianjur.png";
+                  e.currentTarget.style.display = "none";
                 }}
               />
             </div>
@@ -129,13 +142,7 @@ const KetuaSenkomView = () => {
 
           {/* Tombol Tutup File Digital */}
           <button
-            onClick={() => {
-              if (window.history.length > 1) {
-                window.close();
-              } else {
-                alert("Tampilan profil digital aktif.");
-              }
-            }}
+            onClick={handleClose}
             className="w-full py-2.5 sm:py-3 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md text-xs sm:text-sm font-bold tracking-wider transition-colors cursor-pointer uppercase shadow-sm"
           >
             TUTUP FILE DIGITAL
