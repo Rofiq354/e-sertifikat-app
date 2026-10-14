@@ -11,7 +11,7 @@ const KetuaSenkomView = () => {
     jabatan: "Ketua Senkom Mitra Polri Kabupaten Cianjur",
     motto: "Menembus Jarak Tanpa Batas",
     deskripsi:
-      "Memimpin Senkom Mitra Polri Kabupaten Cianjur dalam menjalin sinergi dengan Kepolisian Resor (Polres) Cianjur guna mewujudkan keamanan, ketertiban masyarakat, serta pemanfaatan teknologi komunikasi digital.",
+      "Memimpin Senkom Mitra Polri Kabupaten Cianjur dalam menjalin sinergi dengan Badan Kesatuan Bangsa Dan Politik serta pemanfaatan Senkom Digital Communication (SDC) untuk menggelorakan semangat juang Pancasila dan menjaga keutuhan Negara Kesatuan Republic Indonesia",
   };
 
   const handleShare = () => {
