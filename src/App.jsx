@@ -113,7 +113,13 @@ function MainApp() {
 
     // Dorong path URL dinamis dari templates.js ke browser history jika ada
     if (template.url) {
-      window.history.pushState({}, "", template.url);
+      // Pastikan template.url tidak membuang sub-folder base '/e-sertifikat-app/'
+      const cleanUrl = template.url.startsWith("/")
+        ? template.url.slice(1)
+        : template.url;
+      const targetUrl = `${import.meta.env.BASE_URL}${cleanUrl}`;
+
+      window.history.pushState({}, "", targetUrl);
     }
 
     if (
@@ -138,7 +144,7 @@ function MainApp() {
 
   // 5. Handler Kembali ke Landing Page & Reset URL ke Root '/'
   const handleGoBack = () => {
-    window.history.pushState({}, "", "/");
+    window.history.pushState({}, "", import.meta.env.BASE_URL);
     setCurrentStep("landing");
   };
 

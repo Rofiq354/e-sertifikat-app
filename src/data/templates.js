@@ -19,27 +19,17 @@ export const TEMPLATES = [
       {
         id: "bhayangkara",
         name: "Hari Bhayangkara",
-        url: "/hari-bhayangkara/",
+        url: `${import.meta.env.BASE_URL}hari-bhayangkara/`,
       },
       {
         id: "pancasila",
         name: "Hari Lahir Pancasila",
-        url: "/hari-lahir-pancasila/",
+        url: `${import.meta.env.BASE_URL}hari-lahir-pancasila/`,
       },
       {
         id: "kesaktian-pancasila",
         name: "Hari Kesaktian Pancasila",
-        url: "/hari-kesaktian-pancasila/",
-      },
-      {
-        id: "kemerdekaan",
-        name: "Hari Kemerdekaan RI",
-        url: "/hari-kemerdekaan/",
-      },
-      {
-        id: "pamong-praja",
-        name: "Hari Pamong Praja",
-        url: "/hari-pamong-praja/",
+        url: `${import.meta.env.BASE_URL}hari-kesaktian-pancasila/`,
       },
     ],
   },

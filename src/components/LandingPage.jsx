@@ -65,7 +65,7 @@ const LandingPage = ({ onSelectTemplate }) => {
                     {tmpl.title}
                   </h3>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed min-h-[48px]">
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed min-h-12">
                   {tmpl.description}
                 </p>
               </div>

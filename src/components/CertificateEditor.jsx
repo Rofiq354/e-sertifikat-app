@@ -18,7 +18,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
   const [progress, setProgress] = useState(0);
 
   // Path ke file logo (misal ditaruh di folder public/logo.png atau ikon Senkom)
-  const LOGO_URL = "/logo_senkomm.png";
+  const LOGO_URL = `${import.meta.env.BASE_URL}logo_senkomm.png`;
 
   // Helper Format Nama: CALLSIGN - NAMA
   const formatParticipantName = (participant) => {
@@ -31,20 +31,37 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
 
   // Helper Pembuat URL QR Code
   const generateParticipantUrl = (participant) => {
-    const currentBrowserPath =
-      window.location.pathname !== "/"
-        ? window.location.pathname
-        : "/hari-kesaktian-pancasila/";
-    const basePath = selectedTemplate?.url || currentBrowserPath;
+    // Ambil path dari template terpilih atau gunakan default dengan BASE_URL
+    let basePath = selectedTemplate?.url;
 
+    if (!basePath) {
+      basePath = `${import.meta.env.BASE_URL}hari-kesaktian-pancasila/`;
+    }
+
+    // Pastikan basePath selalu diawali garis miring '/'
+    if (!basePath.startsWith("/")) {
+      basePath = `/${basePath}`;
+    }
+
+    // Hindari duplikasi /e-sertifikat-app/ jika basePath secara tidak sengaja terpasang ganda
+    if (basePath.startsWith("/e-sertifikat-app/e-sertifikat-app/")) {
+      basePath = basePath.replace(
+        "/e-sertifikat-app/e-sertifikat-app/",
+        "/e-sertifikat-app/",
+      );
+    }
+
+    // Pastikan akhiran slash ada
     const formattedPath = basePath.endsWith("/") ? basePath : `${basePath}/`;
+
+    // Bentuk URL Publik lengkap
     const baseUrl = `${window.location.origin}${formattedPath}`;
 
     const queryParams = new URLSearchParams({
       tahun: "2026",
       ...(participant.CALLSIGN && { callsign: participant.CALLSIGN }),
       nama: participant.NAMA || "",
-      kota: participant["KOTA/ KABUPATEN"] || "",
+      kota: participant["KOTA/ KABUPATEN"] || participant.KOTA || "",
       provinsi: participant.PROVINSI || "",
       keterangan: participant.keterangan || "",
     }).toString();
