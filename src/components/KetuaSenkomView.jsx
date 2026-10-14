@@ -8,7 +8,7 @@ const KetuaSenkomView = () => {
 
   const ketuaInfo = {
     nama: "H. Suparman",
-    jabatan: "Ketua Senkom Mitra Polri Kabupaten Cianjur",
+    jabatan: "Ketua Senkom Mitra Polri Kab. Cianjur",
     motto: "Menembus Jarak Tanpa Batas",
     deskripsi:
       "Memimpin Senkom Mitra Polri Kabupaten Cianjur dalam menjalin sinergi dengan Badan Kesatuan Bangsa Dan Politik serta pemanfaatan Senkom Digital Communication (SDC) untuk menggelorakan semangat juang Pancasila dan menjaga keutuhan Negara Kesatuan Republic Indonesia",
@@ -89,28 +89,32 @@ const KetuaSenkomView = () => {
             {ketuaInfo.jabatan}
           </div>
 
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full text-emerald-700 dark:text-emerald-400 text-xs font-bold mb-6">
-            <CheckCircle size={14} /> AKTIF &amp; TERVERIFIKASI
-          </div>
-
           {/* Group Data Detail */}
           <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-lg p-4 sm:p-5 text-left mb-6 space-y-3">
             <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] items-baseline text-xs sm:text-sm gap-2">
               <span className="font-semibold text-slate-500 dark:text-slate-400">
-                Jabatan :
+                Jabatan
               </span>
               <span className="font-bold text-slate-900 dark:text-slate-100">
-                {ketuaInfo.jabatan}
+                : {ketuaInfo.jabatan}
               </span>
             </div>
 
             <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] items-baseline text-xs sm:text-sm gap-2">
               <span className="font-semibold text-slate-500 dark:text-slate-400">
-                Wilayah :
+                Wilayah
               </span>
               <span className="font-bold text-slate-900 dark:text-slate-100">
-                Kabupaten Cianjur, Jawa Barat
+                : Kabupaten Cianjur, Jawa Barat
+              </span>
+            </div>
+
+            <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] items-baseline text-xs sm:text-sm gap-2">
+              <span className="font-semibold text-slate-500 dark:text-slate-400">
+                Ditandatangani pada
+              </span>
+              <span className="font-bold text-slate-900 dark:text-slate-100">
+                : Kamis, 17 September 2026 jam 10:00
               </span>
             </div>
 
