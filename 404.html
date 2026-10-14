@@ -1,13 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/logo_senkom.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>e-sertifikat-app</title>
+    <meta charset="utf-8" />
+    <title>E-Sertifikat Senkom</title>
+    <script type="text/javascript">
+      // Mengubah path sub-event menjadi query parameter secara otomatis
+      var pathSegmentsToKeep = 1; // Menjaga path base '/e-sertifikat-app/'
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          "//" +
+          l.hostname +
+          (l.port ? ":" + l.port : "") +
+          l.pathname
+            .split("/")
+            .slice(0, 1 + pathSegmentsToKeep)
+            .join("/") +
+          "/?/" +
+          l.pathname.slice(1).split("/").slice(pathSegmentsToKeep).join("/") +
+          (l.search ? "&" + l.search.slice(1) : "") +
+          l.hash,
+      );
+    </script>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <body></body>
 </html>
