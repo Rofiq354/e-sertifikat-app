@@ -8,7 +8,7 @@
 ,6,S10KSI,Sani Malino,Kab. Tulang Bawang Barat,Lampung,,
 ,7,S12ENP,Nyono Prayitno,Kab. Cirebon,Jawa Barat,,
 ,8,S12GTJ,Ujang Emin,Kab. Garut,Jawa Barat,,
-,9,S12KWJ,Khusna Wijaya,Kota Bogor,Jawa Barat,Belum terdaftar,
+,9,,Khusna Wijaya,Kota Bogor,Jawa Barat,Belum terdaftar,
 ,10,S12KYB,Yanto Budiman,"Kab. Sukabumi,",Jawa Barat,,
 ,11,S12NWT,Narwanto,Kab. Sukoharjo,Jawa Tengah,Salah input data,
 ,12,S12RAD,Suradi,Kab. Bekasi,Jawa Barat,,
@@ -18,7 +18,7 @@
 ,16,S12YSD,Yayan Suardani,Kab. Bandung,Jawa Barat,,
 ,17,S12ASZ,Aries Muhamad Rizal,Kab. Cianjur,Jawa Barat,,
 ,18,S12CGA,Ginanjar Arif Hidayat,Kab. Cianjur,Jawa Barat,,
-,19,S12ONA,Rosmana,Kab. Garut,Jawa Barat,Belum terdaftar,
+,19,,Rosmana,Kab. Garut,Jawa Barat,Belum terdaftar,
 ,20,S12EWD,Eko Wahidin,Kab. Karawang,Jawa Barat,,
 ,21,S22SBA,Sobirin ,Kab. Kota Baru,Kalimantan Selatan,,
 ,22,S12SRE,Slamet Riyadi,Kota Depok,Jawa Barat,,
@@ -45,7 +45,7 @@
 ,43,S14GLW,M Faizin,Kab. Brebes,Jawa Tengah,,
 ,44,S14RGI,Agus Supriyanto,Kab. Cilacap,Jawa Tengah,,
 ,45,S20JNK,Juli Nuriskian,Kota Singkawang,Kalimantan Barat,,
-,46,S08CHL,Choirul,Kab. Oku Timur,Sumatra Selatan,Belum terdaftar,085220543354
+,46,,Choirul,Kab. Oku Timur,Sumatra Selatan,Belum terdaftar,085220543354
 ,47,S10FFF,Sunarto,Kab. Lampung Utara,Lampung,,
 ,48,S10OOO,Agus Jubaidi,Kab. Lampung Selatan,Lampung,,
 ,49,S12DIW,Dwi Wahyono,Kota Tangerang Selatan,Banten,Salah input data,
@@ -92,13 +92,13 @@
 ,90,S07YIB,Toyib,Kab. Muaro Jambi,Jambi,,
 ,91,S01SAB,Salman Alfarsi Batubara,Kab. Aceh Utara,Aceh,,
 ,92,S12HTW,Hadi Tri Wijaya,Kab. Karawang,Jawa Barat,,
-,93,S02IBN,Ibnu Ichwan,Kota Medan,Sumatra Utara,Belum terdaftar,082165529994
+,93,,Ibnu Ichwan,Kota Medan,Sumatra Utara,Belum terdaftar,082165529994
 ,94,S12CJC,Kosasih,Kab. Cianjur,Jawa Barat,,
 ,95,S12ETP,Tri Pambudi,Kab. Cirebon,Jawa Barat,,
 ,96,S13TSD,Teguh Sedianto,Kota Tangerang,Banten,,
 ,97,S14BBP,Sigit Bayu Pamadi,Kab. Sukoharjo,Jawa Tengah,,
- ,98,S14FZG,Suparno,Kab. Karanganyar,Jawa Tengah,,
-,99,S23DAH,Hamid,Kab. Berau,Kalimantan Timur,Belum terdaftar,
+,98,S14FZG,Suparno,Kab. Karanganyar,Jawa Tengah,,
+,99,,Hamid,Kab. Berau,Kalimantan Timur,Belum terdaftar,
 ,100,S27MKL,Muhlisin,Kab. Parigi Moutong,Sulawesi Tengah,,
 ,101,S13SRM,Sarimun,Kota Jakarta Pusat,DKI Jakarta,Salah input data,
 ,102,S12PTA,Tri Guntoro,Kab. Kuningan,Jawa Barat,,
@@ -112,7 +112,7 @@
 ,110,S12HUW,Hudan Wibowo,Kab. Ciamis,Jawa Barat,,
 ,111,S16PPY,Supriyono,Kab. Ponorogo,Jawa Timur,,
 ,112,S12BMO,Bekti Utomo,Kab. Cianjur,Jawa Barat,,
-,113,S27RDO,Rudianto,Kab. Banggai Laut,Sulawesi Tengah,Belum terdaftar,
+,113,,Rudianto,Kab. Banggai Laut,Sulawesi Tengah,Belum terdaftar,
 ,114,S21SIK,Ikhwana Khoiruddin,Kab. Sukamara,Kalimantan Tengah,,
 ,115,S29FDB,Firdaus dg. Bunga,Kab. Gowa,Sulawesi Selatan,,
 ,116,S16RWG,Yusuf Mariyono,Kab. Sidoarjo,Jawa Timur,,
@@ -131,15 +131,15 @@
 ,129,S12GBG,Sudibyo,"Kab. Garut,",Jawa Barat,,
 ,130,S12ABO,Asep Hidayat,Kab. Subang,Jawa Barat,,
 ,131,S12HAG,Hannie Agus Gunawan,Kab. Cianjur,Jawa Barat,,
-,132,S14APG,Abdul Ghofur,Kab. Kebumen,Jawa Tengah,Belum terdaftar,085843935041
-,133,S10NSF,Syaiful Bahri,Kab. Lampung Tengah,Lampung,Belum terdaftar,085319224285
-,134,S12NAD,Nuraidi,Kota Depok,Jawa Barat,Memakai Callsign orang,
-,135,S03IHN,Herman Kamaru,Kab. Solok,Sumatra Barat,Belum terdaftar,
-,136,S28IJS,Imam Sujono,Kab. Konawe  ,Sulawesi Tenggara,Belum terdaftar,81336467928
+,132,,Abdul Ghofur,Kab. Kebumen,Jawa Tengah,Belum terdaftar,085843935041
+,133,,Syaiful Bahri,Kab. Lampung Tengah,Lampung,Belum terdaftar,085319224285
+,134,,Nuraidi,Kota Depok,Jawa Barat,Memakai Callsign orang,
+,135,,Herman Kamaru,Kab. Solok,Sumatra Barat,Belum terdaftar,
+,136,,Imam Sujono,Kab. Konawe  ,Sulawesi Tenggara,Belum terdaftar,81336467928
 ,137,S12KBU,Mochamad Umi,Kota Bogor,Jawa Barat,,087852161675
-,138,S27PSL,Paisal Hasan,Kab. Toli-toli,Sulawesi Tengah,Belum terdaftar,
-,139,S10TOA,Tonny Ariesandy R,Kab. Bangkalan,Jawa Timur,Belum terdaftar,
+,138,,Paisal Hasan,Kab. Toli-toli,Sulawesi Tengah,Belum terdaftar,
+,139,,Tonny Ariesandy R,Kab. Bangkalan,Jawa Timur,Belum terdaftar,
 ,140,S12IQS,M Ainur Rofiq A,Kab. Cianjur,Jawa Barat,,
-,141,,"Asep Suparman, S.Sos., M.Si",Kab. Cianjur,Jawa Barat,,
+,141,,"H. Asep Suparman, S.Sos., M.Si",Kab. Cianjur,Jawa Barat,,
 ,142,,"Dedi Dharmadi, SH., M.Si",Kab. Cianjur,Jawa Barat,,
 
