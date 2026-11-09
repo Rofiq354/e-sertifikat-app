@@ -10,7 +10,9 @@ import CertificateEditor from "./components/CertificateEditor";
 import HariPancasilaCertificateView from "./components/HariPancasilaCertificateView";
 import HariBhayangkaraCertificateView from "./components/HariBhayangkaraCertificateView";
 import HariKesaktianPancasilaCertificateView from "./components/HariKesaktianPancasilaCertificateView";
+import HariPahlawanCertificateView from './components/HariPahlawanCertificateView';
 import KetuaSenkomView from "./components/KetuaSenkomView";
+import KetuaSenkomJabarView from "./components/KetuaSenkomJabarView";
 import { parseCustomInput } from "./utils/parseCustomInput";
 
 function MainApp() {
@@ -39,8 +41,12 @@ function MainApp() {
         searchParams.get("callsign") || searchParams.get("nama"),
       );
 
-      if (pathname.includes("/ketua-senkom")) {
+      if (pathname.includes("/ketua-senkom-jabar")) {
+        setCurrentStep("ketua-senkom-jabar-view");
+      } else if (pathname.includes("/ketua-senkom")) {
         setCurrentStep("ketua-senkom-view");
+      } else if (pathname.includes('/hari-pahlawan')) {
+        setCurrentStep('pahlawan-view');
       } else if (pathname.includes("/hari-kesaktian-pancasila")) {
         setCurrentStep("kesaktian-pancasila-view");
       } else if (pathname.includes("/hari-bhayangkara")) {
@@ -123,6 +129,11 @@ function MainApp() {
     }
 
     if (
+      template.subEventId === 'pahlawan' || 
+      (template.url && template.url.includes('/hari-pahlawan'))
+    ) {
+      setCurrentStep('pahlawan-view');
+    } else if (
       template.subEventId === "kesaktian-pancasila" ||
       (template.url && template.url.includes("/hari-kesaktian-pancasila"))
     ) {
@@ -160,6 +171,15 @@ function MainApp() {
         <LandingPage onSelectTemplate={handleSelectTemplate} />
       )}
 
+      {/* HALAMAN TAMPILAN PREVIEW HARI PAHLAWAN */}
+      {currentStep === 'pahlawan-view' && (
+        <HariPahlawanCertificateView
+          participantData={selectedParticipants[0]}
+          onBack={handleGoBack}
+          onUseTemplate={() => setCurrentStep('editor')}
+        />
+      )}
+
       {/* HALAMAN TAMPILAN PREVIEW HARI KESAKTIAN PANCASILA */}
       {currentStep === "kesaktian-pancasila-view" && (
         <HariKesaktianPancasilaCertificateView
@@ -185,6 +205,10 @@ function MainApp() {
           onBack={handleGoBack}
           onUseTemplate={() => setCurrentStep("editor")}
         />
+      )}
+
+      {currentStep === "ketua-senkom-jabar-view" && (
+        <KetuaSenkomJabarView />
       )}
 
       {currentStep === "ketua-senkom-view" && <KetuaSenkomView />}

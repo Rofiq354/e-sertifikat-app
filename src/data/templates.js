@@ -31,6 +31,11 @@ export const TEMPLATES = [
         name: "Hari Kesaktian Pancasila",
         url: `${import.meta.env.BASE_URL}hari-kesaktian-pancasila/`,
       },
+      { 
+        id: 'pahlawan', 
+        name: 'Hari Pahlawan',
+        url: `${import.meta.env.BASE_URL}hari-pahlawan/`,
+      },
     ],
   },
   {
