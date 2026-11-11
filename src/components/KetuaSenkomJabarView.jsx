@@ -4,14 +4,14 @@ import { Share2, CheckCircle } from "lucide-react";
 const KetuaSenkomView = () => {
   // Gunakan BASE_URL dari Vite agar path gambar menyesuaikan domain deploy di GitHub Pages
   const LOGO_URL = `${import.meta.env.BASE_URL}logo_senkom.png`;
-  const FOTO_KETUA_URL = `${import.meta.env.BASE_URL}ketua-senkom-jabar1.png`;
+  const FOTO_KETUA_URL = `${import.meta.env.BASE_URL}ketua-senkom-jabar2.png`;
 
   const ketuaInfo = {
     nama: "H. Titok Tosan Batoro, S.P.d",
     jabatan: "Ketua Senkom Mitra Polri",
     motto: "Menembus Jarak Tanpa Batas",
     deskripsi:
-      "Memimpin Pengurus Provinsi Senkom Mitra Polri Jawa Barat dalam mengoordinasikan jajaran kabupaten/kota se-Jawa Barat guna mempererat kemitraan dengan Kepolisian Daerah (Polda) Jawa Barat demi terciptanya Kamtibmas yang kondusif.",
+      "Memimpin Senkom Mitra Polri Provinsi Jawa Barat dalam mengkoordinasikan jajaran anggota Senkom Mitra Polri di Kabupaten/ Kota se-Jawa Barat guna mempererat kemitraan dengan Kepolisian Daerah (Polda) Jawa Barat demi terciptanya Kamtibmas yang kondusif.",
   };
 
   const handleShare = () => {
@@ -111,10 +111,10 @@ const KetuaSenkomView = () => {
 
             <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] items-baseline text-xs sm:text-sm gap-2">
               <span className="font-semibold text-slate-500 dark:text-slate-400">
-                Status Dokument
+                Status Dokumen
               </span>
               <span className="font-bold text-emerald-600 text-[11px] sm:text-xs flex items-center gap-1">
-                ✓ VALID &amp; TERVERIFIKASI
+                Telah Dicap & Ditandatangani <br /> Selasa, 10 November 2026 jam 05:53
               </span>
             </div>
 
