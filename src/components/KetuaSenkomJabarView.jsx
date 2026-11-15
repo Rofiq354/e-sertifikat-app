@@ -114,7 +114,7 @@ const KetuaSenkomView = () => {
                 Status Dokumen
               </span>
               <span className="font-bold text-emerald-600 text-[11px] sm:text-xs flex items-center gap-1">
-                Telah Dicap & Ditandatangani <br /> Selasa, 10 November 2026 jam 05:53
+                Telah Dicap & Ditandatangani <br /> Selasa, 10 November 2026 jam 05:53 WIB
               </span>
             </div>
 

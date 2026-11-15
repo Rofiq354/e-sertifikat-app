@@ -30,7 +30,7 @@ function MainApp() {
   const [defaultCount, setDefaultCount] = useState(5);
   const [customInput, setCustomInput] = useState("1-5");
 
-  const LOCAL_CSV_PATH = "/data-peserta.csv";
+  const LOCAL_CSV_PATH = "/data-peserta2.csv";
 
   // 1. Cek URL Browser saat aplikasi dimuat & tangani tombol Back Browser (popstate)
   useEffect(() => {

@@ -114,7 +114,7 @@ const KetuaSenkomView = () => {
                 Ditandatangani pada
               </span>
               <span className="font-bold text-slate-900 dark:text-slate-100">
-                : Kamis, 17 September 2026 jam 10:00
+                : Kamis, 17 September 2026 jam 10:00 WIB
               </span>
             </div>
 

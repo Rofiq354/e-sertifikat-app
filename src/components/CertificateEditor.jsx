@@ -35,7 +35,7 @@ const CertificateEditor = ({ selectedParticipants, selectedTemplate }) => {
     let basePath = selectedTemplate?.url;
 
     if (!basePath) {
-      basePath = `${import.meta.env.BASE_URL}hari-kesaktian-pancasila/`;
+      basePath = `${import.meta.env.BASE_URL}hari-pahlawan/`;
     }
 
     // Pastikan basePath selalu diawali garis miring '/'
