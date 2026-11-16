@@ -19,7 +19,7 @@ const HariPahlawanCertificateView = ({ participantData, onBack, onUseTemplate })
   const urlEventTitle = searchParams.get("event") || "SPECIAL EVENT S12ZAF";
   const urlEventSubtitle =
     searchParams.get("subtitle") ||
-    `PERINGATAN HARI PAHLAWAN \nTAHUN ${urlTahun}`;
+    `HARI PAHLAWAN \n ${urlTahun}`;
 
   const LOGO_URL = `${import.meta.env.BASE_URL}logo_senkom.png`;
 
@@ -117,12 +117,12 @@ const HariPahlawanCertificateView = ({ participantData, onBack, onUseTemplate })
 
           {/* Main Status Label */}
           <div className="text-[11px] sm:text-xs md:text-sm text-slate-800 font-bold mb-3 sm:mb-4 tracking-normal sm:tracking-wider uppercase">
-            POLRES &amp; SENKOM PROVINSI JAWA BARAT
+            SENKOM PROVINSI JAWA BARAT
           </div>
 
           {/* Statement */}
           <p className="text-xs sm:text-sm text-slate-500 mb-3 sm:mb-5">
-            E-Piagam ini sah menyatakan data berikut :
+            E-Piagam ini sah dengan data berikut :
           </p>
 
           {/* Group Data Peserta */}
