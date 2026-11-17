@@ -16,7 +16,7 @@ const HariPahlawanCertificateView = ({ participantData, onBack, onUseTemplate })
   const urlLabelInfo = searchParams.get("label-info") || "Callsign :";
 
   // Properti judul & sub-judul event disesuaikan ke Hari Pahlawan
-  const urlEventTitle = searchParams.get("event") || "SPECIAL EVENT S12ZAF";
+  const urlEventTitle = searchParams.get("event") || "SPECIAL EVENT S12ZAA";
   const urlEventSubtitle =
     searchParams.get("subtitle") ||
     `HARI PAHLAWAN \n ${urlTahun}`;
